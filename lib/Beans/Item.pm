@@ -1,5 +1,15 @@
 use MooseX::Declare;
 
+=head1 NAME
+
+Beans::Item - a line item for an expense or payment in
+
+=head1 SYNOPSIS
+
+ ...
+
+=cut
+
 class Beans::Item {
 
     use MooseX::Types::DateTimeX qw/ DateTime /;
@@ -43,5 +53,15 @@ class Beans::Item {
                        is  => 'rw', 
                      );
 }
+
+=head1 AUTHOR
+
+osfameron, C<< <osfameron at cpan.org> >>
+
+=head1 BOILERPLATE
+
+See L<Beans> for full copyright and support info.
+
+=cut
 
 1;
