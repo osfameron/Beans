@@ -16,9 +16,14 @@ class Beans::Item {
     use MooseX::Types::Moose     qw/ Num Str Bool ArrayRef Maybe /;
 
     use MooseX::Types -declare => [qw/ NonEmptyStr / ];
-    subtype NonEmptyStr
-        => as Str
-            => where { length $_ };
+    subtype NonEmptyStr,
+        as Str,
+            where { length $_ };
+
+    has name      => ( isa      => NonEmptyStr, 
+                       is       => 'rw', 
+                       required => 1,
+                     );
 
     has value     => (
                        isa => Num,
@@ -28,20 +33,17 @@ class Beans::Item {
     has due_date  => ( isa      => DateTime, 
                        is       => 'rw', 
                        required => 1, 
+                       coerce   => 1,
                      );
 
     has paid_date => ( isa => Maybe[DateTime], 
                        is  => 'rw',
+                       coerce   => 1,
                      );
 
     has paid      => ( isa => Bool,        
                        is  => 'rw', 
                        default => sub { my $self = shift; defined $self->paid_date },
-                     );
-
-    has name      => ( isa      => NonEmptyStr, 
-                       is       => 'rw', 
-                       required => 1,
                      );
 
     has tags      => ( isa      => ArrayRef[NonEmptyStr], 
