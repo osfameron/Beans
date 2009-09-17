@@ -7,6 +7,11 @@ license  'perl';
 
 build_requires 'Test::More';
 
+requires 'Moose';
+requires 'MooseX::Types';
+requires 'MooseX::Types::DateTimeX';
+requires 'MooseX::Types::Moose';
+
 auto_install;
 
 WriteAll;
