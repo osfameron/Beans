@@ -2,21 +2,13 @@ use MooseX::Declare;
 
 class Beans::Item {
 
-    use DateTime::Format::Natural;
-
-    use MooseX::Types::DateTime  qw/ DateTime /;
+    use MooseX::Types::DateTimeX qw/ DateTime /;
     use MooseX::Types::Moose     qw/ Num Str Bool ArrayRef Maybe /;
 
     use MooseX::Types -declare => [qw/ NonEmptyStr / ];
     subtype NonEmptyStr
         => as Str
             => where { length $_ };
-
-    my $dt = DateTime::Format::Natural->new( prefer_future => 1 );
-
-    coerce 'DateTime'
-        => from 'Str'
-            => via { $dt->parse_datetime($_[0]) };
 
     has value     => (
                        isa => Num,
