@@ -11,6 +11,7 @@ requires 'Moose';
 requires 'MooseX::Types';
 requires 'MooseX::Types::DateTimeX';
 requires 'MooseX::Types::Moose';
+requires 'MooseX::Types::Set::Object';
 
 auto_install;
 

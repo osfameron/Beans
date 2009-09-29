@@ -14,6 +14,7 @@ class Beans::Item {
 
     use MooseX::Types::DateTimeX qw/ DateTime /;
     use MooseX::Types::Moose     qw/ Num Str Bool ArrayRef Maybe /;
+    use MooseX::Types::Set::Object;
 
     use MooseX::Types -declare => [qw/ NonEmptyStr / ];
     subtype NonEmptyStr,
@@ -46,9 +47,17 @@ class Beans::Item {
                        default => sub { my $self = shift; defined $self->paid_date },
                      );
 
-    has tags      => ( isa      => ArrayRef[NonEmptyStr], 
+    has tags      => ( 
+                       isa      => 'Set::Object',
                        is       => 'rw', 
-                       default  => sub { [] },
+                       accessor => '_tags',
+                       coerce   => 1, # also accept array refs
+                       handles => {
+                           tags       => 'members', # random order
+                           add_tag    => 'insert',
+                           remove_tag => 'remove',
+                           has_tag    => 'member'
+                         },
                      );
 
     has comment   => ( isa => Str,         
